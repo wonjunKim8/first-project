@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <title>SignUp</title>
+
+    <style>
+        .full-screan {
+            width: 100vw;
+            height: 100vh;
+            background-color: yellow;
+            background-image: linear-gradient(90deg, rgb(0, 0, 0, 0.5), rgb(0, 0, 0, 0.9), rgb(0, 0, 0, 1), rgb(0, 0, 0, 0.9), rgb(0, 0, 0, 0.5)),
+            url('https://p.turbosquid.com/ts-thumb/nW/BH7tbs/SK/01/jpg/1646280743/1920x1080/fit_q99/5e244c834dd8248f8a9cb464663ad98a52328f61/01.jpg');
+            background-position: center;
+            background-size: cover;
+        }
+
+        .signup-card {
+            max-width: 500px;
+            width: 95%;
+            max-height: 100vh;
+            height: 100%;
+
+            margin: 0px auto 0px auto;
+
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+
+            color: gray;
+
+        }
+
+        .id-table {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        .id-table > button {
+            width: 120px;
+            height: 40px;
+            margin-left: 10px;
+            color: white;
+        }
+
+        .bts {
+            width: 450px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .bts > button {
+            margin: 10px;
+        }
+    </style>
+
+    <script>
+        function id_verify() {
+            if ($('#id').val().length > 5) {
+                let id = $('#id').val()
+
+            $.ajax({
+                type: "POST",
+                url: "/api/user_check",
+                data: {
+                    username_give: id
+                },
+                success: function (response) {
+                    if (response["exist"]) {
+                        alert('이미 등록된 아이디입니다.')
+                        $("#id").focus()
+                    } else {
+                        alert('사용가능한 아이디입니다. ')
+                    }
+
+                }
+            });
+
+
+            } else {
+                alert("ID를 6자 이상 입력해주세요.")
+            }
+        }
+
+
+        function signup_success() {
+            if ($('#id').val().length > 5) {
+                let id = $('#id').val()
+                let pw = $('#pw').val()
+                let pw2 = $('#pw2').val()
+                if (pw == pw2) {
+                    if ($('#name').val().length > 2) {
+                        let name = $('#name').val()
+
+                        $.ajax({
+                            type: 'POST',
+                            url: '/signup',
+                            data: {id_give: id, pw_give: pw, nickname_give: name},
+                            success: function (response) {
+                                alert('회원가입에 완료하였습니다,로그인화면으로 이동합니다.')
+                                window.location.href = '/login'
+                            }
+                        });
+                    } else {
+                        alert("닉네임을 3자 이상 입력해주세요.")
+                    }
+                } else {
+                    alert("비밀번호가 서로 일치하지 않습니다.")
+                }
+            } else {
+                alert("ID를 6자 이상 입력해주세요.")
+            }
+        }
+
+        function signup_cancel() {
+            alert('홈 화면으로 돌아갑니다.')
+            window.location.href = '/'
+            //    메인페이지 입력
+        }
+
+
+    </script>
+
+
+</head>
+
+
+<body>
+<div class="full-screan">
+    <div class="signup-card">
+        <h2 class="login-title" style="padding-bottom: 5px; color:gray">회원가입 Sign Up</h2>
+        <p style="border-bottom: 3px solid gray; max-width: 500px; width:95%; margin-bottom: 20px;"></p>
+
+
+        <div class="col-md-11" style="margin-bottom:40px;">
+            <label for="id" class="form-label">ID</label>
+            <div class="id-table">
+                <input type="text" class="form-control" id="id" name="id">
+                <button onclick="id_verify()" type="button" class="btn btn-warning">중복 확인</button>
+            </div>
+        </div>
+
+
+        <div class="col-md-11" style="margin-bottom:10px;">
+            <label for="pw" class="form-label">Password</label>
+            <input type="password" class="form-control" id="pw">
+        </div>
+
+        <div class="col-md-11" style="margin-bottom:40px;">
+            <label for="pw2" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" id="pw2">
+        </div>
+
+
+        <div class="col-md-11" style="margin-bottom:5px;">
+            <label for="name" class="form-label">Nickname</label>
+            <input type="text" class="form-control" id="name">
+        </div>
+
+
+        <div class="bts">
+            <button onclick="signup_success()" type="button" class="btn btn-warning" style="color:white;">회원가입
+            </button>
+            <button onclick="signup_cancel()" type="button" class="btn btn-light">가입취소</button>
+        </div>
+
+    </div>
+
+</div>
+
+
+</body>
+
+</html>

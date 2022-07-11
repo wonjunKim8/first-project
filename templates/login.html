@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!-- 디바이스 크기에 맞춤 형식 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="../static/favicon.ico" type="image/x-icon"> <!-- 페비콘 빌려오는 링크 -->
+    <!-- Style 관련 -->
+    <link href='{{ url_for("static", filename="style.css") }}' rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet"> <!-- 폰트링크 -->
+
+    <!-- Script 관련 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> <!-- jquery script -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <script defer src="{{ url_for('static', filename='main.js') }}"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <!-- 쿠키 스크립트 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+
+    <style>
+        .full-screan {
+            width: 100vw;
+            height: 100vh;
+            background-color: yellow;
+            background-image: linear-gradient(90deg, rgba(0, 0, 0, 0) 5%, black 80%), url('https://p.turbosquid.com/ts-thumb/nW/BH7tbs/SK/01/jpg/1646280743/1920x1080/fit_q99/5e244c834dd8248f8a9cb464663ad98a52328f61/01.jpg');
+            background-position: center;
+            background-size: cover;
+        }
+
+        .login-card {
+            max-width: 500px;
+            max-height: 100vh;
+            width: 95%;
+            height: 95%;
+
+
+            position: absolute;
+            right: 5%;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-card > button {
+            border-radius: 50px;
+            max-width: 400px;
+            height: 50px;
+            width: 95%;
+            margin-top: 50px;
+            border: 0px solid saddlebrown;
+
+            font-size: 20px;
+            color: white;
+            background-color: saddlebrown;
+
+        }
+
+        .login-card > button:hover {
+            color: gray;
+        }
+
+        .login-title {
+            color: white;
+            margin: 0px 0px 100px;
+        }
+
+        .form-control {
+            border-radius: 50px;
+            font-size: 15px;
+        }
+
+        .home-move {
+            max-width: 200px;
+            width: 95%;
+            max-height: 100px;
+            height: 95%;
+
+            padding: 20px 30px;
+        }
+
+        .home-move > a {
+            color: white;
+            font-size: 17px;
+            text-decoration-line: None;
+        }
+
+        .home-move > a:hover {
+            color: gray;
+        }
+
+        .signup {
+            padding-top: 20px;
+            color: gray;
+
+
+            font-size: 15px;
+        }
+
+        .signup > p > a {
+            color: white;
+            text-decoration-line: None;
+        }
+
+        .signup > p > a:hover {
+            color: gray;
+        }
+
+    </style>
+
+    <script>
+        function login() {
+            let id = $("#id").val()
+            let pw = $("#pw").val()
+
+            if (id == "") {
+                alert("아이디를 입력해주세요")
+                $("#id").focus()
+                return;
+            }
+            if (pw == "") {
+                alert("비밀번호를 입력해주세요.")
+                $("#pw").focus()
+                return;
+            }
+            $.ajax({
+                type: "POST",
+                url: "/api/login",
+                data: {
+                    username_give: id,
+                    password_give: pw
+                },
+                success: function (response) {
+                    let name = response['nick'];
+                    $.cookie('name',name,{path: '/'});
+                    if (response['result'] == 'success') {
+                        $.cookie('mytoken', response['token'], {path: '/'});
+
+                        alert('로그인 성공!')
+                        window.location.href = '/'
+                    } else {
+                        alert('로그인에 실패하였습니다.')
+                    }
+                }
+            });
+        }
+    </script>
+
+</head>
+
+<body>
+<div class="full-screan">
+    <div class="login-card">
+        <h1 class="login-title"> 로그인</h1>
+        <div class="form-floating mb-4">
+            <input type="text" class="form-control" id="id" placeholder="name@example.com" style="width : 400px">
+            <label table="id">ID</label>
+
+        </div>
+
+        <div class="form-floating">
+            <input type="password" class="form-control" id="pw" placeholder="Leave your pw" style="width :  400px">
+            <label table="pw">PASSWORD</label>
+        </div>
+
+        <button onclick="login()">로그인하기</button>
+
+        <div class="signup">
+            <p>New here? <a onclick="window.location.href='/signup'" target="_self">Sign up</a></p>
+            <div>
+                <p class="home-move"><a onclick="window.location.href='/'" fontcolor="white">< Home</a></p>
+            </div>
+        </div>
+
+
+    </div>
+
+
+</div>
+
+</body>
+
+</html>
