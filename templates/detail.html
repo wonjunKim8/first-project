@@ -18,9 +18,44 @@
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
   <title>Document</title>
+
   <script>
+    function imgToBase64ByFileReader(url) {
+      return new Promise((resolve, reject) => {
+        let xhr = new XMLHttpRequest();
+        xhr.onload = () => {
+          let reader = new FileReader();
+          reader.onloadend = function () {
+            resolve(reader.result);
+            document.getElementById('cafe-image').setAttribute('src', reader.result);
+          }
+          reader.readAsDataURL(xhr.response); //Base64형식으로 인코딩
+        }
+        xhr.open('GET', url);
+        xhr.responseType = 'blob';
+        xhr.send();
+      });
+    }
+    function loadFile(input) {
+      let file = input.files[0]; //선택된 파일 가져오기
+
+      let newImage = document.createElement("img"); //새 이미지 추가
+      newImage.src = URL.createObjectURL(file); //이미지 source 가져오기
+      newImage.id = "cafe-image"
+      newImage.style.width = "100%";
+      newImage.style.height = "100%";
+      newImage.style.objectFit = "cover";
+
+      //이미지를 image-show div에 추가
+      let container = document.getElementById('image-show');
+      container.appendChild(newImage);
+
+      //이미지를 서버에 저장하기 위해 base64 형태로 변환
+      imgToBase64ByFileReader(document.getElementById('cafe-image').getAttribute("src"));
+    }
+
     function save_order() {
-      let img = $('#img').val()
+      let img = $('#cafe-image').attr("src")
       let region = $('#region').val()
       let content = $('#content').val()
 
@@ -46,21 +81,16 @@
     }
 
     .img_section {
-      width: 50%;
+      width: 70%;
       height: 500px;
       background-color: bisque;
       margin: 0 auto;
     }
 
-    .img_box {
-      width: 400px;
-      height: 400px;
-      background-color: blueviolet;
-    }
 
     .btn {
       display: block;
-      margin-left: 750px;
+      margin-left: 580px;
 
     }
 
@@ -72,26 +102,35 @@
     .content>h3 {
       text-align: center;
     }
+
+    .img_boxes {
+      width: 70%;
+      margin: 0 auto;
+      margin-top: 400px;
+    }
   </style>
 </head>
 
 <body>
   <div class="wrap">
-    <div class="img_section">
+    <div id="image-show" class="img_section">
+      img
       <button onclick=" save_order()" class="btn btn-primary" type="submit">저장하기</button>
-      <div class="img_box">img </div>
-      <input id="img" type="file" accept="image/png, image/jpeg">
+      <form enctype="multipart/form-data" class="img_boxes">
 
-      <select class="form-select" aria-label="Default select example">
-        <option selected>지역선택</option>
-        <option id="region" value="서울">서울</option>
-        <option id="region" value="부산">부산</option>
-        <option id="region" value="경기">경기</option>
-        <option id="region" value="전라">전라</option>
-        <option id="region" value="경상">경상</option>
-        <option id="region" value="충청">충청</option>
-        <option id="region" value="제주">제주</option>
-      </select>
+        <input id="img" type="file" accept="image/*" onchange="loadFile(this)">
+
+        <select class="form-select" aria-label="Default select example">
+          <option selected>지역선택</option>
+          <option id="region" value="서울">서울</option>
+          <option id="region" value="부산">부산</option>
+          <option id="region" value="경기">경기</option>
+          <option id="region" value="전라">전라</option>
+          <option id="region" value="경상">경상</option>
+          <option id="region" value="충청">충청</option>
+          <option id="region" value="제주">제주</option>
+        </select>
+      </form>
 
     </div>
     <div class="content">
