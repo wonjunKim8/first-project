@@ -158,20 +158,27 @@
 <body>
 <div class="full-screan">
     <div class="login-card">
+        <form action="", method="post">
         <h1 class="login-title"> 로그인</h1>
         <div class="form-floating mb-4">
-            <input type="text" class="form-control" id="id" placeholder="name@example.com" style="width : 400px">
+            <input type="text" class="form-control" placeholder="ID" name="id" value="{{request.form.id}}" style="width : 400px">
             <label table="id">ID</label>
-
         </div>
-
         <div class="form-floating">
-            <input type="password" class="form-control" id="pw" placeholder="Leave your pw" style="width :  400px">
+            <input type="password" class="form-control" placeholder="Password" name="password" value="{{request.form.password }}" style="width :  400px">
             <label table="pw">PASSWORD</label>
         </div>
+        <button type="submit">로그인하기</button>
+    </form>
 
-        <button onclick="login()">로그인하기</button>
+        {%if error %}
+            <p class="error">
+                <strong>Error:</strong>{{ error }}
+        {% endif %}
 
+
+
+        
         <div class="signup">
             <p>New here? <a onclick="window.location.href='/signup'" target="_self">Sign up</a></p>
             <div>
