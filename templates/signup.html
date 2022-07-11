@@ -68,8 +68,13 @@
     </style>
 
     <script>
+        // 회원가입 기능 중 id 중복 확인 기능 구현
+        // 1. 중복확인 버튼 클릭시 함수 실행
+        // 2. id의 길이가 5이상이면 let id에 html의 $('#id').val()값을 할당
+        // 3. ajax로 서버에게 id값을 전송 -> app.py의 회원가입 id 중복 확인 기능으로 이동
+        // 6. 서버에서 받은 exist값이 true이면 이미 등록된 아이디, flase면 사용가능 아이디 확인
         function id_verify() {
-            if ($('#id').val().length > 5) {
+            if ($('#id').val().length >= 5) {
                 let id = $('#id').val()
 
             $.ajax({
@@ -89,15 +94,18 @@
                 }
             });
 
-
             } else {
-                alert("ID를 6자 이상 입력해주세요.")
+                alert("ID를 5자 이상 입력해주세요.")
             }
         }
 
-
+        // 회원가입 기능 구현
+        // 1. id길이가 5이상이고, 
+        // 2. pw(비밀번호)와 pw2(비밀번호 확인)이 일치 여부 파악,
+        // 3. 닉네임(name)의 길이가 3이상일 시 서버에 id, pw, nickname 전송 -> app.py 회원가입 기능 으로 이동
+        // 7. 서버로부터 결과메세지 받으면 로그인 화면으로 전환
         function signup_success() {
-            if ($('#id').val().length > 5) {
+            if ($('#id').val().length >= 5) {
                 let id = $('#id').val()
                 let pw = $('#pw').val()
                 let pw2 = $('#pw2').val()
@@ -121,14 +129,13 @@
                     alert("비밀번호가 서로 일치하지 않습니다.")
                 }
             } else {
-                alert("ID를 6자 이상 입력해주세요.")
+                alert("ID를 5자 이상 입력해주세요.")
             }
         }
 
         function signup_cancel() {
             alert('홈 화면으로 돌아갑니다.')
-            window.location.href = '/'
-            //    메인페이지 입력
+            window.location.href = '/'  // 메인페이지 이동
         }
 
 
