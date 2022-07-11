@@ -115,7 +115,7 @@
 
     </style>
 
-    <script>
+    <!-- <script>
         function login() {
             let id = $("#id").val()
             let pw = $("#pw").val()
@@ -151,7 +151,7 @@
                 }
             });
         }
-    </script>
+    </script> -->
 
 </head>
 
@@ -165,7 +165,7 @@
             <label table="id">ID</label>
         </div>
         <div class="form-floating">
-            <input type="password" class="form-control" placeholder="Password" name="password" value="{{request.form.password }}" style="width :  400px">
+            <input type="password" class="form-control" placeholder="PW" name="pw" value="{{request.form.pw }}" style="width :  400px">
             <label table="pw">PASSWORD</label>
         </div>
         <button type="submit">로그인하기</button>
@@ -178,7 +178,7 @@
 
 
 
-        
+
         <div class="signup">
             <p>New here? <a onclick="window.location.href='/signup'" target="_self">Sign up</a></p>
             <div>
