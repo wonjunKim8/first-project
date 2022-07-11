@@ -40,10 +40,11 @@ def user_login():
     username_receive = request.form['username_give']
     password_receive = request.form['password_give']
     password_hash = hashlib.sha256(password_receive.encode('utf-8')).hexdigest()
-    result = db.user.find_one({'id': username_receive, 'pw': password_hash})
-    name = result['nick']
+    result = db.users.find_one({'id': username_receive, 'pw': password_hash})
 
+    
     if result is not None:
+        name = result['nick']
         payload = {
             'id': username_receive,
             'exp': datetime.utcnow() + timedelta(seconds=60 * 60)
@@ -69,7 +70,7 @@ def signup():
 @app.route('/api/user_check', methods=['POST'])
 def user_check():
     username_receive = request.form['username_give']
-    exist = bool(db.user.find_one({"id": username_receive}))
+    exist = bool(db.users.find_one({"id": username_receive}))
     return jsonify({'result': 'success', 'exist': exist})        
         
 
@@ -86,7 +87,7 @@ def signup_success():
 
     pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
 
-    db.user.insert_one({'id': id_receive, 'pw': pw_hash, 'nick': nickname_receive})
+    db.users.insert_one({'id': id_receive, 'pw': pw_hash, 'nick': nickname_receive})
 
     return jsonify({'result': 'success'})
 
