@@ -18,6 +18,24 @@
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
   <title>Document</title>
+  <script>
+    function save_order() {
+      let img = $('#img').val()
+      let region = $('#region').val()
+      let content = $('#content').val()
+
+      $.ajax({
+        type: 'POST',
+        url: '/travel',
+        data: { image_give: img, region_give: region, content_give: content },
+        success: function (response) {
+          alert(response['msg'])
+          window.location.reload()
+        }
+      });
+    }
+  </script>
+
   <style>
     .wrap {
       width: 60%;
@@ -60,25 +78,25 @@
 <body>
   <div class="wrap">
     <div class="img_section">
-      <button class="btn btn-primary" type="submit">저장하기</button>
+      <button onclick=" save_order()" class="btn btn-primary" type="submit">저장하기</button>
       <div class="img_box">img </div>
-      <input type="file" accept="image/png, image/jpeg">
+      <input id="img" type="file" accept="image/png, image/jpeg">
 
       <select class="form-select" aria-label="Default select example">
         <option selected>지역선택</option>
-        <option value="1">서울</option>
-        <option value="2">부산</option>
-        <option value="3">경기</option>
-        <option value="4">전라</option>
-        <option value="5">경상</option>
-        <option value="6">충청</option>
-        <option value="7">제주</option>
+        <option id="region" value="서울">서울</option>
+        <option id="region" value="부산">부산</option>
+        <option id="region" value="경기">경기</option>
+        <option id="region" value="전라">전라</option>
+        <option id="region" value="경상">경상</option>
+        <option id="region" value="충청">충청</option>
+        <option id="region" value="제주">제주</option>
       </select>
 
     </div>
     <div class="content">
       <h3>소개글</h3>
-      <textarea style="height: 500px;width: 100%;"></textarea>
+      <textarea id="content" style="height: 500px;width: 100%;"></textarea>
     </div>
 
   </div>
