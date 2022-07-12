@@ -1,0 +1,50 @@
+.full-screan {
+  width: 100vw;
+  height: 100vh;
+  background-color: yellow;
+  background-image: url("https://content.presspage.com/uploads/685/1920_solaceinsolo1.jpg?10000");
+  background-position: center;
+  background-size: cover;
+}
+
+.signup-card {
+  max-width: 500px;
+  width: 95%;
+  max-height: 100vh;
+  height: 100%;
+
+  margin: 0px auto 0px auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+
+  color: #ffffff;
+}
+
+.id-table {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.id-table > button {
+  width: 120px;
+  height: 40px;
+  margin-left: 10px;
+  color: white;
+}
+
+.bts {
+  width: 450px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.bts > button {
+  margin: 10px;
+}

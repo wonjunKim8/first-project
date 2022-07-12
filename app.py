@@ -7,8 +7,7 @@ import hashlib
 from datetime import datetime, timedelta
 import certifi
 import requests
-from bs4 import BeautifulSoup
-from apscheduler.schedulers.background import BackgroundScheduler
+
 
 from pymongo import MongoClient
 client = MongoClient('mongodb+srv://test:sparta@cluster0.210xc.mongodb.net/?retryWrites=true&w=majority')

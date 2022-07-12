@@ -1,0 +1,33 @@
+.wrap {
+  width: 100%;
+  background-color: aqua;
+  position: relative;
+}
+
+.img_section {
+  width: 50%;
+  height: 50vh;
+  background-color: bisque;
+  margin: 0 auto;
+}
+
+.mini_section {
+  margin: 0 auto;
+  width: 50%;
+  margin-top: 25px;
+}
+
+.content {
+  width: 70%;
+  height: 500px;
+  margin: 0 auto;
+}
+
+.content > h3 {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.btn-box {
+  float: right;
+}
