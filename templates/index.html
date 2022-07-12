@@ -123,37 +123,6 @@
 
 
 
-        function travelMain() {
-            $.ajax({
-                type: 'GET',
-                url: '/travelList',
-                data: {},
-                success: function (response) {
-                    let rows = response['travel']
-                    for (let i = 0; i < rows.length; i++) {
-                        let region = rows[i]['region']
-                        let image = rows[i]['image']
-                        let content = rows[i]['content']
-
-                        let temp_html =
-                            `<div class="col">
-                            <div class="card h-100">
-                                <img src="${image}" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">${region}</h5>
-                                    <p class="mycomment">${content}</p>
-                                    <p style="text-align:right; color:gray" >${name}</p>
-                                </div>
-                            </div>
-                        </div>`
-
-                        $('#cards').append(temp_html)
-                    }
-
-                }
-            })
-        }
-
 
         function add() {
             const loginStatus = document.cookie.split('; ').find(x => x.startsWith('mytoken'))
