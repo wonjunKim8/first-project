@@ -41,7 +41,7 @@
             justify-content: center;
         }
 
-        .mytitle > .mybtn{
+        .mytitle>.mybtn {
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -49,7 +49,7 @@
 
         }
 
-        .mytitle >  .mybtn > button {
+        .mytitle>.mybtn>button {
             width: 100px;
             height: 30px;
 
@@ -60,7 +60,7 @@
             border: 1px solid white;
 
             margin-top: 40px;
-            margin-right :15px;
+            margin-right: 15px;
 
 
         }
@@ -99,12 +99,12 @@
 
         function checkCookie() {
             const loginStatus = document.cookie.split('; ').find(x => x.startsWith('mytoken'))
-        
+
             if (loginStatus) { // 로그인 상태 //
                 console.log('main js logged in status')
                 let loginBtn = document.querySelector("#btn-login");
                 loginBtn.innerHTML = "LogOut";
-                loginBtn.addEventListener("click", logOut);      
+                loginBtn.addEventListener("click", logOut);
             } else {
                 console.log('main js logged out status')
             }
@@ -112,7 +112,7 @@
 
 
 
-        
+
         function logOut() {
             document.cookie = "mytoken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
             document.cookie = "name=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
@@ -123,7 +123,7 @@
 
 
 
-        function travelMain(){
+        function travelMain() {
             $.ajax({
                 type: 'GET',
                 url: '/travelList',
@@ -136,7 +136,7 @@
                         let content = rows[i]['content']
 
                         let temp_html =
-                        `<div class="col">
+                            `<div class="col">
                             <div class="card h-100">
                                 <img src="${image}" class="card-img-top" alt="...">
                                 <div class="card-body">
@@ -155,31 +155,28 @@
         }
 
 
-        function add(){
+        function add() {
             const loginStatus = document.cookie.split('; ').find(x => x.startsWith('mytoken'))
             if (loginStatus) { // 로그인 상태 //
                 console.log('main js logged in status')
-                window.location.href = "/detail"   
+                window.location.href = "/detail"
             } else {
                 alert("로그인이 필요합니다.")
-                window.location.href = "/login"  
+                window.location.href = "/login"
             }
         }
-        
-    
+
+
     </script>
 
 
 </head>
 
 <body>
-<<<<<<< HEAD
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
         <button onclick='window.location.href = "/login"' class="btn btn-primary me-md-2" type="button">Log in</button>
         <button onclick='window.location.href = "/detail"' class="btn btn-primary" type="button">글쓰기</button>
     </div>
-=======
->>>>>>> dfb5d52cb66422c2502862f11055cf63578a6392
     <div class="mytitle">
         <h1>Tour Korea</h1>
         <div class="mybtn">
@@ -193,7 +190,6 @@
 
     </div>
     <div class="mycards">
-<<<<<<< HEAD
         {% for one_travel in travel %}
         <div class="row row-cols-1 row-cols-md-4 g-4">
             <div class="col">
@@ -235,10 +231,6 @@
                     </div>
                 </div>
             </div>
-=======
-        <div class="row row-cols-1 row-cols-md-4 g-4" id="cards">
-
->>>>>>> dfb5d52cb66422c2502862f11055cf63578a6392
         </div>
         {% endfor %}
     </div>
