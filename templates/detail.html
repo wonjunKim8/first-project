@@ -73,25 +73,21 @@
 
   <style>
     .wrap {
-      width: 60%;
+      width: 100%;
       background-color: aqua;
-      margin: 0 auto;
       position: relative;
-      margin-top: 10px;
     }
 
     .img_section {
-      width: 70%;
-      height: 500px;
+      width: 50%;
+      height: 50vh;
       background-color: bisque;
       margin: 0 auto;
     }
 
-
-    .btn {
-      display: block;
-      margin-left: 580px;
-
+    .mini_section {
+      margin: 0 auto;
+      width: 35%;
     }
 
     .content {
@@ -101,40 +97,37 @@
 
     .content>h3 {
       text-align: center;
-    }
-
-    .img_boxes {
-      width: 70%;
-      margin: 0 auto;
-      margin-top: 400px;
+      margin-top: 20px;
     }
   </style>
 </head>
 
 <body>
   <div class="wrap">
-    <div id="image-show" class="img_section">
-      img
+
+
+    <form enctype="multipart/form-data" class="img_boxes">
+      <div id="image-show" class="img_section">
+        img넣는곳입니다
+      </div>
+    </form>
+    <div class="mini_section">
+      <input type="file" accept="image/*" onchange="loadFile(this)">
+      <select class="form-select" aria-label="Default select example">
+        <option selected>지역선택</option>
+        <option id="region" value="서울">서울</option>
+        <option id="region" value="부산">부산</option>
+        <option id="region" value="경기">경기</option>
+        <option id="region" value="전라">전라</option>
+        <option id="region" value="경상">경상</option>
+        <option id="region" value="충청">충청</option>
+        <option id="region" value="제주">제주</option>
+      </select>
       <button onclick=" save_order()" class="btn btn-primary" type="submit">저장하기</button>
-      <form enctype="multipart/form-data" class="img_boxes">
-
-        <input id="img" type="file" accept="image/*" onchange="loadFile(this)">
-
-        <select class="form-select" aria-label="Default select example">
-          <option selected>지역선택</option>
-          <option id="region" value="서울">서울</option>
-          <option id="region" value="부산">부산</option>
-          <option id="region" value="경기">경기</option>
-          <option id="region" value="전라">전라</option>
-          <option id="region" value="경상">경상</option>
-          <option id="region" value="충청">충청</option>
-          <option id="region" value="제주">제주</option>
-        </select>
-      </form>
-
+      <button onclick='window.location.href = "/"' class="btn btn-primary" type="submit">뒤로가기</button>
     </div>
     <div class="content">
-      <h3>소개글</h3>
+      <h3>여행소개글</h3>
       <textarea id="content" style="height: 500px;width: 100%;"></textarea>
     </div>
 
