@@ -16,6 +16,10 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 
+    <script>
+
+    </script>
+
     <style>
         * {
             font-family: 'Gowun Dodum', sans-serif;
@@ -37,9 +41,17 @@
             justify-content: center;
         }
 
-        .mytitle>button {
-            width: 200px;
-            height: 50px;
+        .mytitle > .mybtn{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+
+        }
+
+        .mytitle >  .mybtn > button {
+            width: 100px;
+            height: 30px;
 
             background-color: transparent;
             color: white;
@@ -47,7 +59,10 @@
             border-radius: 50px;
             border: 1px solid white;
 
-            margin-top: 10px;
+            margin-top: 40px;
+            margin-right :15px;
+
+
         }
 
 
@@ -59,7 +74,8 @@
             margin: 20px auto 0px auto;
             width: 2000px;
             height: 1500px;
-            max-width: 1900px;
+            max-width: 1500px;
+            width: 95%;
         }
 
 
@@ -68,28 +84,124 @@
         }
     </style>
 
+
+    <script>
+        $(document).ready(function () {
+            checkCookie()
+            travelMain()
+            const start = performance.now()
+            const duration = performance.now() - start;
+            console.log(duration)
+
+
+        });
+
+
+        function checkCookie() {
+            const loginStatus = document.cookie.split('; ').find(x => x.startsWith('mytoken'))
+        
+            if (loginStatus) { // 로그인 상태 //
+                console.log('main js logged in status')
+                let loginBtn = document.querySelector("#btn-login");
+                loginBtn.innerHTML = "LogOut";
+                loginBtn.addEventListener("click", logOut);      
+            } else {
+                console.log('main js logged out status')
+            }
+        }
+
+
+
+        
+        function logOut() {
+            document.cookie = "mytoken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.cookie = "name=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            window.location.href = "/"
+        }
+
+
+
+
+
+        function travelMain(){
+            $.ajax({
+                type: 'GET',
+                url: '/travelList',
+                data: {},
+                success: function (response) {
+                    let rows = response['travel']
+                    for (let i = 0; i < rows.length; i++) {
+                        let region = rows[i]['region']
+                        let image = rows[i]['image']
+                        let content = rows[i]['content']
+
+                        let temp_html =
+                        `<div class="col">
+                            <div class="card h-100">
+                                <img src="${image}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">${region}</h5>
+                                    <p class="mycomment">${content}</p>
+                                    <p style="text-align:right; color:gray" >${name}</p>
+                                </div>
+                            </div>
+                        </div>`
+
+                        $('#cards').append(temp_html)
+                    }
+
+                }
+            })
+        }
+
+
+        function add(){
+            const loginStatus = document.cookie.split('; ').find(x => x.startsWith('mytoken'))
+            if (loginStatus) { // 로그인 상태 //
+                console.log('main js logged in status')
+                window.location.href = "/detail"   
+            } else {
+                alert("로그인이 필요합니다.")
+                window.location.href = "/login"  
+            }
+        }
+        
+    
+    </script>
+
+
 </head>
 
 <body>
+<<<<<<< HEAD
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button onclick='window.location.href = "logOut"' class="btn btn-primary me-md-2" type="button">Log Out</button>
-        <button onclick='window.location.href = "ADD"' class="btn btn-primary" type="button">Add</button>
+        <button onclick='window.location.href = "/login"' class="btn btn-primary me-md-2" type="button">Log in</button>
+        <button onclick='window.location.href = "/detail"' class="btn btn-primary" type="button">글쓰기</button>
     </div>
+=======
+>>>>>>> dfb5d52cb66422c2502862f11055cf63578a6392
     <div class="mytitle">
         <h1>Tour Korea</h1>
+        <div class="mybtn">
+            <button onclick='window.location.href = "/login"' id="btn-login">LogIn</button>
+            <button onclick='add()'>Add</button>
+
+            <!-- window.location.href = "/detail" -->
+        </div>
     </div>
 
 
     </div>
     <div class="mycards">
+<<<<<<< HEAD
+        {% for one_travel in travel %}
         <div class="row row-cols-1 row-cols-md-4 g-4">
             <div class="col">
                 <div class="card h-100">
-                    <img src="data:image/jpeg;base64,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"
-                        class="card-img-top" alt="...">
+                    <img src="{{one_travel.image}}" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">내가 추천하는 장소</h5>
-                        <p class="mycomment">나의 평가</p>
+                        <h5 class="card-title">{{one_travel.region}}</h5>
+                        <p class="mycomment">{{one_travel.content}}</p>
                     </div>
                 </div>
             </div>
@@ -123,7 +235,12 @@
                     </div>
                 </div>
             </div>
+=======
+        <div class="row row-cols-1 row-cols-md-4 g-4" id="cards">
+
+>>>>>>> dfb5d52cb66422c2502862f11055cf63578a6392
         </div>
+        {% endfor %}
     </div>
 </body>
 

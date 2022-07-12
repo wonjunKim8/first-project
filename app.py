@@ -25,9 +25,9 @@ def ADD():
 
 @app.route('/')
 def home():
-    return render_template('index.html')
-
-
+   
+    travel_list = list(db.travel.find({},{'_id':False}))
+    return render_template('index.html',travel=travel_list)
 
 
 ###############################################################################################################
@@ -52,13 +52,13 @@ def user_login():
 
     
     if result is not None:
-        name = result['nick']
+        name = result['name']
         payload = {
             'id': username_receive,
             'exp': datetime.utcnow() + timedelta(seconds=60 * 60)
         }
         token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
-        return jsonify({'result': 'success', 'token': token , 'nick':name})
+        return jsonify({'result': 'success', 'token': token , 'name':name})
     else:
         return jsonify({'result': 'fail', 'msg': '아이디와 비밀번호가 일치하지 않습니다.'})
 
@@ -98,9 +98,10 @@ def signup_success():
 
     pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
 
-    db.users.insert_one({'id': id_receive, 'pw': pw_hash, 'nick': nickname_receive})
+    db.users.insert_one({'id': id_receive, 'pw': pw_hash, 'name': nickname_receive})
 
     return jsonify({'result': 'success'})
+
 
 
         
