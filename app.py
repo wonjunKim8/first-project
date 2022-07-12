@@ -19,6 +19,15 @@ app = Flask(__name__)
 
 
 
+@app.route('/detail_wonjun')
+def mainPage():
+    return render_template("detail_wonjun.html")
+
+
+@app.route('/detail_dowoo')
+def ADD():
+    return render_template("detail_dowoo.html")
+
 @app.route('/')
 def home():
     return render_template('index.html')
