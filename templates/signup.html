@@ -17,8 +17,8 @@
             width: 100vw;
             height: 100vh;
             background-color: yellow;
-            background-image: linear-gradient(90deg, rgb(0, 0, 0, 0.5), rgb(0, 0, 0, 0.9), rgb(0, 0, 0, 1), rgb(0, 0, 0, 0.9), rgb(0, 0, 0, 0.5)),
-            url('https://p.turbosquid.com/ts-thumb/nW/BH7tbs/SK/01/jpg/1646280743/1920x1080/fit_q99/5e244c834dd8248f8a9cb464663ad98a52328f61/01.jpg');
+            background-image:
+            url('https://content.presspage.com/uploads/685/1920_solaceinsolo1.jpg?10000');
             background-position: center;
             background-size: cover;
         }
@@ -36,7 +36,7 @@
             align-items: flex-start;
             justify-content: center;
 
-            color: gray;
+            color: #ffffff;
 
         }
 
@@ -68,13 +68,8 @@
     </style>
 
     <script>
-        // 회원가입 기능 중 id 중복 확인 기능 구현
-        // 1. 중복확인 버튼 클릭시 함수 실행
-        // 2. id의 길이가 5이상이면 let id에 html의 $('#id').val()값을 할당
-        // 3. ajax로 서버에게 id값을 전송 -> app.py의 회원가입 id 중복 확인 기능으로 이동
-        // 6. 서버에서 받은 exist값이 true이면 이미 등록된 아이디, flase면 사용가능 아이디 확인
         function id_verify() {
-            if ($('#id').val().length >= 5) {
+            if ($('#id').val().length > 5) {
                 let id = $('#id').val()
 
             $.ajax({
@@ -94,18 +89,15 @@
                 }
             });
 
+
             } else {
-                alert("ID를 5자 이상 입력해주세요.")
+                alert("ID를 6자 이상 입력해주세요.")
             }
         }
 
-        // 회원가입 기능 구현
-        // 1. id길이가 5이상이고, 
-        // 2. pw(비밀번호)와 pw2(비밀번호 확인)이 일치 여부 파악,
-        // 3. 닉네임(name)의 길이가 3이상일 시 서버에 id, pw, nickname 전송 -> app.py 회원가입 기능 으로 이동
-        // 7. 서버로부터 결과메세지 받으면 로그인 화면으로 전환
+
         function signup_success() {
-            if ($('#id').val().length >= 5) {
+            if ($('#id').val().length > 5) {
                 let id = $('#id').val()
                 let pw = $('#pw').val()
                 let pw2 = $('#pw2').val()
@@ -116,7 +108,7 @@
                         $.ajax({
                             type: 'POST',
                             url: '/signup',
-                            data: {id_give: id, pw_give: pw, name_give: name},
+                            data: {id_give: id, pw_give: pw, nickname_give: name},
                             success: function (response) {
                                 alert('회원가입에 완료하였습니다,로그인화면으로 이동합니다.')
                                 window.location.href = '/login'
@@ -129,13 +121,14 @@
                     alert("비밀번호가 서로 일치하지 않습니다.")
                 }
             } else {
-                alert("ID를 5자 이상 입력해주세요.")
+                alert("ID를 6자 이상 입력해주세요.")
             }
         }
 
         function signup_cancel() {
             alert('홈 화면으로 돌아갑니다.')
-            window.location.href = '/'  // 메인페이지 이동
+            window.location.href = '/'
+            //    메인페이지 입력
         }
 
 
@@ -148,7 +141,7 @@
 <body>
 <div class="full-screan">
     <div class="signup-card">
-        <h2 class="login-title" style="padding-bottom: 5px; color:gray">회원가입 Sign Up</h2>
+        <h2 class="login-title" style="padding-bottom: 5px; color:#ffffff">회원가입 Sign Up</h2>
         <p style="border-bottom: 3px solid gray; max-width: 500px; width:95%; margin-bottom: 20px;"></p>
 
 
