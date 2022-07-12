@@ -51,7 +51,6 @@ def user_login():
     
     if result is not None:
         name = result['name']
-        print(name)
         payload = {
             'id': username_receive,
             'exp': datetime.utcnow() + timedelta(seconds=60 * 60)

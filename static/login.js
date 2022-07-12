@@ -23,7 +23,6 @@ function login() {
     },
     success: function (response) {
       //서버에서 처리 후 결과 받아옴
-      alert(response["name"]);
       let name = response["name"];
       $.cookie("name", name, { path: "/" });
 
