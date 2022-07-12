@@ -1,13 +1,20 @@
 .wrap {
   width: 100%;
-  background-color: aqua;
+  /* background-color: aqua; */
   position: relative;
+}
+.img_boxes {
+  background-image: url("https://images.wallpaperscraft.com/image/single/girl_shore_sea_318398_1600x1200.jpg");
+  background-position: center;
+  background-size: cover;
+  opacity: 0.7;
 }
 
 .img_section {
   width: 50%;
   height: 50vh;
-  background-color: bisque;
+  /* background-color: bisque; */
+
   margin: 0 auto;
 }
 
@@ -21,13 +28,18 @@
   width: 70%;
   height: 500px;
   margin: 0 auto;
+  margin-top: 20px;
 }
 
 .content > h3 {
   text-align: center;
   margin-top: 20px;
+  font-size: 45px;
 }
 
 .btn-box {
   float: right;
+}
+.is-info {
+  margin-top: 10px;
 }
