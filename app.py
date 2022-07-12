@@ -108,10 +108,6 @@ def signup_success():
 
 
 
-@app.route('/')
-def home():
-   return render_template('detail.html')
-
 @app.route("/travel", methods=["POST"])
 def mars_post():
     image_receive = request.form['image_give']
