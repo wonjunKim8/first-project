@@ -25,9 +25,9 @@ def ADD():
 
 @app.route('/')
 def home():
-    return render_template('index.html')
-
-
+   
+    travel_list = list(db.travel.find({},{'_id':False}))
+    return render_template('index.html',travel=travel_list)
 
 
 ###############################################################################################################
