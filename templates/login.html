@@ -133,12 +133,13 @@
                 url: "/api/login",
                 data: {
                     username_give: id,
-                    password_give: pw
+                    password_give: pw,
                 },
                 success: function (response) { //서버에서 처리 후 결과 받아옴
-                    alert('aaaaa')
-                    let name = response['nick'];
+                    alert(response['name'])
+                    let name = response['name'];
                     $.cookie('name', name, { path: '/' });
+                    
                     if (response['result'] == 'success') {
                         $.cookie('mytoken', response['token'], { path: '/' });
 

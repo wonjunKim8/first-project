@@ -25,7 +25,6 @@ def ADD():
 
 @app.route('/')
 def home():
-   
     travel_list = list(db.travel.find({},{'_id':False}))
     return render_template('index.html',travel=travel_list)
 
@@ -53,6 +52,7 @@ def user_login():
     
     if result is not None:
         name = result['name']
+        print(name)
         payload = {
             'id': username_receive,
             'exp': datetime.utcnow() + timedelta(seconds=60 * 60)
@@ -94,11 +94,11 @@ def user_check():
 def signup_success():
     id_receive = request.form['id_give']
     pw_receive = request.form['pw_give']
-    nickname_receive = request.form['nickname_give']
+    name_receive = request.form['name_give']
 
     pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
 
-    db.users.insert_one({'id': id_receive, 'pw': pw_hash, 'name': nickname_receive})
+    db.users.insert_one({'id': id_receive, 'pw': pw_hash, 'name': name_receive})
 
     return jsonify({'result': 'success'})
 
@@ -114,11 +114,14 @@ def mars_post():
     image_receive = request.form['image_give']
     region_receive = request.form['region_give']
     content_receive=request.form['content_give']
-
+    name=request.form['names_give']
+    name_receive = name.split('=')[1]
+    print(name_receive)
     doc = {
         'image': image_receive,
         'region': region_receive,
         'content': content_receive,
+        'name': name_receive
 
     }
 
