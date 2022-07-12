@@ -58,13 +58,13 @@ def user_login():
 
     
     if result is not None:
-        name = result['nick']
+        name = result['name']
         payload = {
             'id': username_receive,
             'exp': datetime.utcnow() + timedelta(seconds=60 * 60)
         }
         token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
-        return jsonify({'result': 'success', 'token': token , 'nick':name})
+        return jsonify({'result': 'success', 'token': token , 'name':name})
     else:
         return jsonify({'result': 'fail', 'msg': '아이디와 비밀번호가 일치하지 않습니다.'})
 
