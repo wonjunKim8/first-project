@@ -41,9 +41,17 @@
             justify-content: center;
         }
 
-        .mytitle>button {
-            width: 200px;
-            height: 50px;
+        .mytitle > .mybtn{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+
+        }
+
+        .mytitle >  .mybtn > button {
+            width: 100px;
+            height: 30px;
 
             background-color: transparent;
             color: white;
@@ -51,7 +59,10 @@
             border-radius: 50px;
             border: 1px solid white;
 
-            margin-top: 10px;
+            margin-top: 40px;
+            margin-right :15px;
+
+
         }
 
 
@@ -63,7 +74,8 @@
             margin: 20px auto 0px auto;
             width: 2000px;
             height: 1500px;
-            max-width: 1900px;
+            max-width: 1500px;
+            width: 95%;
         }
 
 
@@ -72,20 +84,116 @@
         }
     </style>
 
+
+    <script>
+        $(document).ready(function () {
+            checkCookie()
+            travelMain()
+            const start = performance.now()
+            const duration = performance.now() - start;
+            console.log(duration)
+
+
+        });
+
+
+        function checkCookie() {
+            const loginStatus = document.cookie.split('; ').find(x => x.startsWith('mytoken'))
+        
+            if (loginStatus) { // 로그인 상태 //
+                console.log('main js logged in status')
+                let loginBtn = document.querySelector("#btn-login");
+                loginBtn.innerHTML = "LogOut";
+                loginBtn.addEventListener("click", logOut);      
+            } else {
+                console.log('main js logged out status')
+            }
+        }
+
+
+
+        
+        function logOut() {
+            document.cookie = "mytoken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.cookie = "name=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            window.location.href = "/"
+        }
+
+
+
+
+
+        function travelMain(){
+            $.ajax({
+                type: 'GET',
+                url: '/travelList',
+                data: {},
+                success: function (response) {
+                    let rows = response['travel']
+                    for (let i = 0; i < rows.length; i++) {
+                        let region = rows[i]['region']
+                        let image = rows[i]['image']
+                        let content = rows[i]['content']
+
+                        let temp_html =
+                        `<div class="col">
+                            <div class="card h-100">
+                                <img src="${image}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">${region}</h5>
+                                    <p class="mycomment">${content}</p>
+                                    <p style="text-align:right; color:gray" >${name}</p>
+                                </div>
+                            </div>
+                        </div>`
+
+                        $('#cards').append(temp_html)
+                    }
+
+                }
+            })
+        }
+
+
+        function add(){
+            const loginStatus = document.cookie.split('; ').find(x => x.startsWith('mytoken'))
+            if (loginStatus) { // 로그인 상태 //
+                console.log('main js logged in status')
+                window.location.href = "/detail"   
+            } else {
+                alert("로그인이 필요합니다.")
+                window.location.href = "/login"  
+            }
+        }
+        
+    
+    </script>
+
+
 </head>
 
 <body>
+<<<<<<< HEAD
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
         <button onclick='window.location.href = "/login"' class="btn btn-primary me-md-2" type="button">Log in</button>
         <button onclick='window.location.href = "/detail"' class="btn btn-primary" type="button">글쓰기</button>
     </div>
+=======
+>>>>>>> dfb5d52cb66422c2502862f11055cf63578a6392
     <div class="mytitle">
         <h1>Tour Korea</h1>
+        <div class="mybtn">
+            <button onclick='window.location.href = "/login"' id="btn-login">LogIn</button>
+            <button onclick='add()'>Add</button>
+
+            <!-- window.location.href = "/detail" -->
+        </div>
     </div>
 
 
     </div>
     <div class="mycards">
+<<<<<<< HEAD
         {% for one_travel in travel %}
         <div class="row row-cols-1 row-cols-md-4 g-4">
             <div class="col">
@@ -127,6 +235,10 @@
                     </div>
                 </div>
             </div>
+=======
+        <div class="row row-cols-1 row-cols-md-4 g-4" id="cards">
+
+>>>>>>> dfb5d52cb66422c2502862f11055cf63578a6392
         </div>
         {% endfor %}
     </div>
