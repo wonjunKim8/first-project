@@ -28,6 +28,12 @@ def home():
     return render_template('index.html')
 
 
+@app.route("/travelList", methods=["GET"])
+def travel_get():
+    travelList = list(db.travel.find({}, {'_id': False}))
+    return jsonify({'travel': travelList})
+
+
 
 
 ###############################################################################################################
@@ -101,6 +107,7 @@ def signup_success():
     db.users.insert_one({'id': id_receive, 'pw': pw_hash, 'nick': nickname_receive})
 
     return jsonify({'result': 'success'})
+
 
 
         
