@@ -34,8 +34,8 @@
 
     </div>
     <div class="mycards">
-        {% for one_travel in travel %}
         <div class="row row-cols-1 row-cols-md-4 g-4">
+            {% for one_travel in travel %}
             <div class="col">
                 <div class="card h-100">
                     <img src="{{one_travel.image}}" class="card-img-top" alt="...">
@@ -46,8 +46,8 @@
                     </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
 </body>
 
