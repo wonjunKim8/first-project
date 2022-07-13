@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+          integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+          crossorigin="anonymous"></script>
+
+  <title>Document</title>
+  <script>
+    function commentSave() {
+      let comment = $("#comment").val()
+      let travelIndex = window.location.search
+      let param = new URLSearchParams(travelIndex);
+      let index = param.get("index");
+      let indexes = "{{ index }}"
+      $.ajax({
+        type: "POST",
+        url: "/travel_comment",
+        data: { index_give: index, comment_give: comment, name_give: name },
+        success: function (response) {
+          alert(response["msg"])
+          window.location.reload()
+        }
+      });
+    }
+  </script>
+</head>
+
+<body>
+  <a onclick="commentSave()" id="comment">
+
+  </a>
+    {% for one_travel in travel %}
+      {% if request.full_path.split("?")[1].split("=")[1] | int == one_travel.index %}
+        <img src="{{one_travel.image}}" width="80" height="300" class="card-img-top" alt="...">
+      {% endif %}
+    {% endfor%}
+
+  {% for one_comment in comment %}
+    {% if request.full_path.split("?")[1].split("=")[1] | int == one_comment.index %}
+      <div>{{one_comment.comment}}</div>
+      <div>{{one_comment.name}}</div>
+    {% endif %}
+  {% endfor%}
+
+
+
+
+  <div></div>
+
+
+
+</body>
+
+</html>

@@ -26,43 +26,8 @@ def ADD():
 
 @app.route('/')
 def home():
-    status_receive = request.args.get("status_give")
     travel_list = list(db.travel.find({},{'_id':False}))
-    # num =travel_list['num']
-    return render_template('index.html',travel=travel_list,status=status_receive,num=num)
-
-
-@app.route("/travel", methods=["POST"])
-def mars_post():
-    travel_list = list(db.travel.find({}, {'_id': False}))
-    count =len(travel_list) +1
-    image_receive = request.form['image_give']
-    region_receive = request.form['region_give']
-    content_receive=request.form['content_give']
-    
-    name=request.form['names_give']
-    name_receive = name.split('=')[1]
-    print(name_receive)
-    doc = {
-        'image': image_receive,
-        'region': region_receive,
-        'content': content_receive,
-        'name': name_receive,
-        'num':count
-
-    }
-
-    db.travel.insert_one(doc)
-
-    return jsonify({'msg': '저장 완료!'})    
-
-@app.route('/api/delete_word', methods=['POST'])
-def delete_word(num):
-    # 단어 삭제하기
-    travel_receive = request.form['travel_give']
-    db.travel.delete_one({"travel":travel_receive})
-    return jsonify({'result': 'success', 'msg': '삭제완료!'})
-    
+    return render_template('index.html',travel=travel_list)
 
 
 ###############################################################################################################
@@ -184,6 +149,28 @@ def remove():
         
   
     return jsonify({'msg': '삭제 완료!'})
+
+
+@app.route("/travel_comment", methods=["POST"])
+def comment():
+    comment_receive = request.form['comment_give'] 
+    index_receive = int(request.form['index_give'])
+    name_receive =request.form['name_give']
+    doc ={
+        'comment':comment_receive,
+        'index':index_receive,
+        'name':name_receive
+    }
+
+    db.travelcomment.insert_one(doc)
+        
+    return jsonify({'msg': '등록 완료!'})
+@app.route('/commentpage')
+def commentpage():
+    travelcomment_list = list(db.travelcomment.find({},{'_id':False}))
+    travel_list = list(db.travel.find({},{'_id':False}))
+    return render_template('comment_page.html',travel=travel_list,comment=travelcomment_list)    
+
 
 
 if __name__ == '__main__':
