@@ -155,7 +155,7 @@ def remove():
 def comment():
     comment_receive = request.form['comment_give'] 
     index_receive = int(request.form['index_give'])
-    name_receive =request.form[name_give]
+    name_receive =request.form['name_give']
     doc ={
         'comment':comment_receive,
         'index':index_receive,

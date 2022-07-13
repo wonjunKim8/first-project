@@ -5,49 +5,55 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <title>Document</title>
   <script>
-    function commentSave() {
-      let comment = $("#comment").val()
+    $(document).ready(function () {
+
+      listing()
+    });
+    function listing() {
       let travelIndex = window.location.search
       let param = new URLSearchParams(travelIndex);
       let index = param.get("index");
-      let indexes = "{{ index }}"
+      console.log(index)
+      // let indexes = "{{ index }}"
+
+
+    }
+    function commentSave() {
+      let comment = $("#comment").val()
+      $.ajax({
+        type: "POST",
+        url: "/travel_comment",
+        data: { index_give: index, comment_give: comment, name_give: name },
+        success: function (response) {
+          alert(response["msg"])
+          window.location.reload()
+        }
+      });
     }
 
-
-    $.ajax({
-      type: "POST",
-      url: "/travel_comment",
-      data: { index_give: index, comment_give: comment, name_give: name },
-      success: function (response) {
-        alert(response["msg"])
-        window.location.reload()
-      }
-    });
 
   </script>
 </head>
 
 <body>
   <a onclick="commentSave()" id="comment">
-
+    가나다라마바사
   </a>
-  {% for one_travel in travel &}
-  {% if indexes == one_travel.index %}
-  <div>{{one_travel.img}}</div>
+  {% for one_travel in travel %}
+  {% if index == one_travel.index %}
+  <img src="{{one_travel.img}}">
   {% endif %}
   {% endfor%}
 
-  {% for one_comment in comment &}
+  {% for one_comment in comment %}
   {% if indexes == one_comment.index %}
   <div>{{one_comment.comment}}</div>
   <div>{{one_comment.name}}</div>
   {% endif %}
   {% endfor%}
-
-
-
 
   <div></div>
 
