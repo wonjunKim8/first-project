@@ -41,7 +41,7 @@
       {% if request.full_path.split("?")[1].split("=")[1] | int == one_travel.index %}
         <img src="{{one_travel.image}}" width="80" height="300" class="card-img-top" alt="...">
       {% endif %}
-  {% endfor%}
+    {% endfor%}
 
   {% for one_comment in comment %}
     {% if request.full_path.split("?")[1].split("=")[1] | int == one_comment.index %}

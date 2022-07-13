@@ -169,7 +169,7 @@ def comment():
 def commentpage():
     travelcomment_list = list(db.travelcomment.find({},{'_id':False}))
     travel_list = list(db.travel.find({},{'_id':False}))
-    return render_template('temp.html',travel=travel_list,comment=travelcomment_list)    
+    return render_template('comment_page.html',travel=travel_list,comment=travelcomment_list)    
 
 
 
