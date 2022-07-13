@@ -151,13 +151,11 @@ def remove():
     return jsonify({'msg': '삭제 완료!'})
 
 
-<<<<<<< HEAD
-=======
 @app.route("/travel_comment", methods=["POST"])
 def comment():
     comment_receive = request.form['comment_give'] 
     index_receive = int(request.form['index_give'])
-    name_receive =request.form[name_give]
+    name_receive =request.form['name_give']
     doc ={
         'comment':comment_receive,
         'index':index_receive,
@@ -175,7 +173,6 @@ def commentpage():
 
 
 
->>>>>>> 3bce5c258ec3b3b460fa800708659c0855957f2a
 if __name__ == '__main__':
    app.run('0.0.0.0', port=5000, debug=True)
 
