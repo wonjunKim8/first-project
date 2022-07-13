@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+    function commentSave() {
+      let comment = $("#comment").val()
+      let travelIndex = window.location.search
+      let param = new URLSearchParams(travelIndex);
+      let index = param.get("index");
+      let indexes = "{{ index }}"
+    }
+
+
+    $.ajax({
+      type: "POST",
+      url: "/travel_comment",
+      data: { index_give: index, comment_give: comment, name_give: name },
+      success: function (response) {
+        alert(response["msg"])
+        window.location.reload()
+      }
+    });
+
+  </script>
+</head>
+
+<body>
+  <a onclick="commentSave()" id="comment">
+
+  </a>
+  {% for one_travel in travel &}
+  {% if indexes == one_travel.index %}
+  <div>{{one_travel.img}}</div>
+  {% endif %}
+  {% endfor%}
+
+  {% for one_comment in comment &}
+  {% if indexes == one_comment.index %}
+  <div>{{one_comment.comment}}</div>
+  <div>{{one_comment.name}}</div>
+  {% endif %}
+  {% endfor%}
+
+
+
+
+  <div></div>
+
+
+
+</body>
+
+</html>
