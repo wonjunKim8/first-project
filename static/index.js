@@ -33,3 +33,17 @@ function add() {
     window.location.href = "/login";
   }
 }
+
+
+function delete_card(index){
+  $.ajax({
+      type: "POST",
+      url: "/api/delete_card",
+      data: {index_give:index},
+      success: function (response) {
+          alert(response["msg"])
+          window.location.reload()
+      }
+  });
+
+}

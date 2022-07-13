@@ -1,3 +1,4 @@
+from ast import AsyncFunctionDef
 from flask import Flask, render_template, request, jsonify, redirect
 from flask import Flask, redirect, url_for
 from pymongo import MongoClient
@@ -7,6 +8,7 @@ import hashlib
 from datetime import datetime, timedelta
 import certifi
 import requests
+import random
 
 
 from pymongo import MongoClient
@@ -114,18 +116,40 @@ def mars_post():
     content_receive=request.form['content_give']
     name=request.form['names_give']
     name_receive = name.split('=')[1]
-    print(name_receive)
+    
+    
+    index = random.randrange(1, 10000)
+    index_bool=True
+    
+    while index_bool :
+        if db.users.find_one({'index':index}):
+            index = random.randrange(1, 10000)
+        else :
+            index_bool=False
+           
     doc = {
-        'image': image_receive,
-        'region': region_receive,
-        'content': content_receive,
-        'name': name_receive
-
+    'image': image_receive,
+    'region': region_receive,
+    'content': content_receive,
+    'name': name_receive,
+    'index':index
     }
-
+    
     db.travel.insert_one(doc)
 
     return jsonify({'msg': '저장 완료!'})
+
+# 삭제 기능 구현
+
+@app.route("/api/delete_card", methods=["POST"])
+def remove():
+    index_receive = int(request.form['index_give'])
+    db.travel.delete_one({'index':index_receive})
+
+        
+  
+    return jsonify({'msg': '삭제 완료!'})
+
 
 if __name__ == '__main__':
    app.run('0.0.0.0', port=5000, debug=True)
