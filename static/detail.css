@@ -4,7 +4,7 @@
   position: relative;
 }
 .img_boxes {
-  background-image: url("https://images.wallpaperscraft.com/image/single/girl_shore_sea_318398_1600x1200.jpg");
+  background-image: url("/static/images/detail_image.jpg");
   background-position: center;
   background-size: cover;
   opacity: 0.7;

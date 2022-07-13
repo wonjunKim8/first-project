@@ -56,12 +56,16 @@
             {% for one_travel in travel %}
             <div id="card-box" class="col">
                 <div class="card h-100">
-                    <img src="{{one_travel.image}}" class="card-img-top" alt="...">
+                    <img src="{{one_travel.image}}" width="80" height="300" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">{{one_travel.region}}</h5>
                         <p class="mycomment">{{one_travel.content}}</p>
                         <p class="myname">{{one_travel.name}}</p>
+<<<<<<< HEAD
                         <button onclick="delete_word('{{one_travel.num}}') ">삭제하기</button>
+=======
+                        <button onclick="delete_card('{{one_travel.index}}')">삭제</button>
+>>>>>>> 9f47ce3f51d222780e8afa20f5329be89dfdca58
                     </div>
                 </div>
             </div>
