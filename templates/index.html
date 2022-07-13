@@ -39,6 +39,7 @@
         <div class="row row-cols-1 row-cols-md-4 g-4">
             {% for one_travel in travel %}
             <div class="col">
+<<<<<<< HEAD
                 <div class="card h-100">
                     <img src="{{one_travel.image}}" width="80" height="300" class="card-img-top" alt="...">
                     <div class="card-body">
@@ -46,8 +47,19 @@
                         <p class="mycomment">{{one_travel.content}}</p>
                         <p class="myname">{{one_travel.name}}</p>
                         <button onclick="delete_card('{{one_travel.index}}')">삭제</button>
+=======
+                <a onclick="window.location.href='/commentpage?index={{one_travel.index}}';">
+                    <div class=" card h-100">
+                        <img src="{{one_travel.image}}" width="80" height="300" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{one_travel.region}}</h5>
+                            <p class="mycomment">{{one_travel.content}}</p>
+                            <p class="myname">{{one_travel.name}}</p>
+                            <button onclick="delete_card('{{one_travel.index}}')">삭제</button>
+                        </div>
+>>>>>>> 3bce5c258ec3b3b460fa800708659c0855957f2a
                     </div>
-                </div>
+                </a>
             </div>
             {% endfor %}
         </div>
