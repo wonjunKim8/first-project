@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" http-equiv="X-UA-Compatible"
-          content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -18,8 +18,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,500;1,300&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
-    <script defer src="{{ url_for('static', filename='main.js') }}"></script>
-
 
 </head>
 
@@ -40,35 +38,22 @@
     <div class="mycards">
         <div class="row row-cols-1 row-cols-md-4 g-4">
             {% for one_travel in travel %}
-            <<<<<<< HEAD <div id="card-box" class="col">
-                <div class="card h-100">
-                    <img src="{{one_travel.image}}" width="80" height="300" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">{{one_travel.region}}</h5>
-                        <p class="mycomment">{{one_travel.content}}</p>
-                        <p class="myname">{{one_travel.name}}</p>
-                        <button onclick="delete_word('{{one_travel.num}}') ">삭제하기</button>
-
-                        <button onclick="delete_card('{{one_travel.index}}')">삭제</button>
-
-                        <div class="col">
-                            <a onclick="window.location.href='/commentpage?index={{one_travel.index}}';">
-                                <div class=" card h-100">
-                                    <img src="{{one_travel.image}}" width="80" height="300" class="card-img-top"
-                                        alt="...">
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{one_travel.region}}</h5>
-                                        <p class="mycomment">{{one_travel.content}}</p>
-                                        <p class="myname">{{one_travel.name}}</p>
-                                        <button onclick="delete_card('{{one_travel.index}}')">삭제</button>
-                                    </div>
-
-                                </div>
-                            </a>
+            <div class="col">
+                <a onclick="window.location.href='/commentpage?index={{one_travel.index}}';">
+                    <div class=" card h-100">
+                        <img src="{{one_travel.image}}" width="80" height="300" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{one_travel.region}}</h5>
+                            <p class="mycomment">{{one_travel.content}}</p>
+                            <p class="myname">{{one_travel.name}}</p>
+                            <button onclick="delete_card('{{one_travel.index}}')">삭제</button>
                         </div>
-                        {% endfor %}
                     </div>
-                </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 </body>
 
 </html>

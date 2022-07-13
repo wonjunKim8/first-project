@@ -23,14 +23,13 @@ function login() {
     },
     success: function (response) {
       //서버에서 처리 후 결과 받아옴
-      let name = response['name'];
-      $.cookie('name', name, { path:'/'});
-      alert(response['name'])
-      alert(response['token'])
-      if (response['result'] == 'success') {
+      let name = response["name"];
+      $.cookie("name", name, { path: "/" });
+
+      if (response["result"] == "success") {
         $.cookie("mytoken", response["token"], { path: "/" });
-        
-        alert('로그인 성공!');
+
+        alert("로그인 성공!");
         window.location.href = "/";
       } else {
         alert("로그인에 실패하였습니다.");

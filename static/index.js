@@ -2,7 +2,6 @@ $(document).ready(function () {
   checkCookie();
 });
 
-
 function checkCookie() {
   const loginStatus = document.cookie.split("; ").find((x) => x.startsWith("mytoken"));
 

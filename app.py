@@ -13,10 +13,11 @@ import random
 
 from pymongo import MongoClient
 client = MongoClient('mongodb+srv://test:sparta@cluster0.210xc.mongodb.net/?retryWrites=true&w=majority')
-SECRET_KEY = 'LCH'
+SECRET_KEY = 'SPARTA'
 db = client.dbsparta
 
 app = Flask(__name__)
+
 
 
 @app.route('/detail')
@@ -25,31 +26,41 @@ def ADD():
 
 @app.route('/')
 def home():
-        token_receive = request.cookies.get('mytoken')
-        travel_list = list(db.travel.find({},{'_id':False}))
-        
-        return render_template('index.html', travel=travel_list)
-        # try:
-        #     payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-        #     user_info = db.users.find_one({"id": payload["id"]})
-        #     return render_template('index.html', user_info=user_info, travel=travel_list)
-        # except jwt.ExpiredSignatureError:
-        #     user_info =None
-        #     return render_template('index.html', user_info=user_info, travel=travel_list)
-        # except jwt.exceptions.DecodeError:
-        #     user_info =None
-        #     return render_template('index.html', user_info=user_info, travel=travel_list)
+    travel_list = list(db.travel.find({},{'_id':False}))
+    return render_template('index.html',travel=travel_list)
+
+
+###############################################################################################################
+# 로그인 페이지                                                                                                #
+###############################################################################################################
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+
+# 로그인 기능 구현
+# id,pw를 클라이언트에게 받아와 pw를 해쉬인코딩을 하여 암호화
+# id와 암호화한 pw를 mongoDB 내부에 있는지 확인. 없을시 result=None
+# 클라이언트에게 받은 id와 pw가 mongoDB와 일치할 시 jwt-token생성 후 
+# 클라이언트에게 토큰 전송
+@app.route('/api/login', methods=['POST'])
+def user_login():
+    username_receive = request.form['username_give']
+    password_receive = request.form['password_give']
+    password_hash = hashlib.sha256(password_receive.encode('utf-8')).hexdigest()
+    result = db.users.find_one({'id': username_receive, 'pw': password_hash})
+
     
-        if result is not None:
-            name = result['name']
-            payload = {
-                'id': username_receive,
-                'exp': datetime.utcnow() + timedelta(seconds=60 * 60)
-            }
-            token = jwt.encode(payload, SECRET_KEY, algorithm='HS256').decode('utf-8')
-            return jsonify({'result': 'success', 'token': token , 'name':name})
-        else:
-            return jsonify({'result': 'fail', 'msg': '아이디와 비밀번호가 일치하지 않습니다.'})
+    if result is not None:
+        name = result['name']
+        payload = {
+            'id': username_receive,
+            'exp': datetime.utcnow() + timedelta(seconds=60 * 60)
+        }
+        token = jwt.encode(payload, SECRET_KEY, algorithm='HS256').decode('utf-8')
+        return jsonify({'result': 'success', 'token': token , 'name':name})
+    else:
+        return jsonify({'result': 'fail', 'msg': '아이디와 비밀번호가 일치하지 않습니다.'})
 
 
     
@@ -93,48 +104,7 @@ def signup_success():
 
 
 
-  
-
-
-
-###############################################################################################################
-# 로그인 페이지                                                                                                #
-###############################################################################################################
-@app.route('/login')
-def login():
-    return render_template('login.html')
-
-
-# 로그인 기능 구현
-# id,pw를 클라이언트에게 받아와 pw를 해쉬인코딩을 하여 암호화
-# id와 암호화한 pw를 mongoDB 내부에 있는지 확인. 없을시 result=None
-# 클라이언트에게 받은 id와 pw가 mongoDB와 일치할 시 jwt-token생성 후 
-# 클라이언트에게 토큰 전송
-@app.route('/api/login', methods=['POST'])
-def user_login():
-    username_receive = request.form['username_give']
-    password_receive = request.form['password_give']
-    password_hash = hashlib.sha256(password_receive.encode('utf-8')).hexdigest()
-    result = db.users.find_one({'id': username_receive, 'pw': password_hash})
-    
-    
-    if result is not None:
-        name = result['name']
-        payload = {
-            'id': username_receive,
-            'exp': datetime.utcnow() + timedelta(seconds=60 * 60)
-        }
-        token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
-        return jsonify({'result': 'success', 'token': token , 'name':name }) 
-    else:
-        return jsonify({'result': 'fail', 'msg': '아이디와 비밀번호가 일치하지 않습니다.'})
-
-
-    
-   
-
-
-      
+        
 
 
 
