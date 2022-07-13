@@ -83,7 +83,7 @@
         .mypost {
             width: 95%;
             max-width: 700px;
-            margin: 20px auto 20px 400px;
+            margin-top : 20px;
 
             box-shadow: 0px 0px 3px 0px black;
             padding: 20px;
@@ -96,12 +96,18 @@
         .mycards {
             width: 95%;
             max-width: 650px;
-            margin: 20px auto 20px 420px;
         }
 
         .mycards > .card {
             margin-top: 10px;
             margin-bottom: 10px;
+        }
+
+        .total-post{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
 
@@ -146,29 +152,30 @@
     </div>
 
 </div>
-<div class="mypost">
-    <div class="form-floating">
+<div class="total-post">
+    <div class="mypost">
+        <div class="form-floating">
             <textarea class="form-control" placeholder="Leave a comment here" id="comment"
-                      style="height: 100px"></textarea>
-        <label for="floatingTextarea2">글을 남겨주세요.</label>
-    </div>
-    <button onclick="commentSave()" type="button" class="btn btn-dark" id="comment">댓글 남기기</button>
+                style="height: 100px"></textarea>
+            <label for="floatingTextarea2">글을 남겨주세요.</label>
+        </div>
+        <button onclick="commentSave()" type="button" class="btn btn-dark" id="comment">댓글 남기기</button>
 
-</div>
-<div class="mycards" id="comment-list">
-    {% for one_comment in comment %}
+    </div>
+    <div class="mycards" id="comment-list">
+        {% for one_comment in comment %}
         {% if request.full_path.split("?")[1].split("=")[1] | int == one_comment.index %}
         <div class="card">
             <div class="card-body">
                 <blockquote class="blockquote mb-0">
                     <p>{{one_comment.comment}}</p>
-                <footer class="blockquote-footer">{{one_comment.name}}</footer>
-            </blockquote>
-            </div>    
+                    <footer class="blockquote-footer">{{one_comment.name}}</footer>
+                </blockquote>
+            </div>
         </div>
         {% endif %}
-    {% endfor%}
-    <!-- <div class="card">
+        {% endfor%}
+        <!-- <div class="card">
         <div class="card-body">
             <blockquote class="blockquote mb-0">
                 <p>새로운 앨범 너무 멋져요!</p>
@@ -184,6 +191,7 @@
             </blockquote>
         </div>
     </div> -->
+    </div>
 </div>
 
 </body>

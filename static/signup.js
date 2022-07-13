@@ -34,7 +34,7 @@ function signup_success() {
         $.ajax({
           type: "POST",
           url: "/signup",
-          data: { id_give: id, pw_give: pw, nickname_give: name },
+          data: { id_give: id, pw_give: pw, name_give: name },
           success: function (response) {
             alert("회원가입에 완료하였습니다,로그인화면으로 이동합니다.");
             window.location.href = "/login";

@@ -1,3 +1,29 @@
+
+$(document).ready(function () {
+  checkCookie();
+});
+
+function checkCookie() {
+  const test = document.cookie
+      .split('; ')
+      .find(x => x.startsWith('mytoken'))
+
+  if (test) { // 로그인 상태 //
+      console.log('main js logged in status')
+
+  } else {
+
+      console.log('main js logged out status')
+
+  }
+
+}
+
+
+
+
+
+
 function imgToBase64ByFileReader(url) {
   return new Promise((resolve, reject) => {
     let xhr = new XMLHttpRequest();
