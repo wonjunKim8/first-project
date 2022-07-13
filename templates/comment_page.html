@@ -95,8 +95,8 @@
 
         .mycards {
             width: 95%;
-            max-width: 500px;
-            margin: auto;
+            max-width: 650px;
+            margin: 20px auto 20px 420px;
         }
 
         .mycards > .card {
@@ -113,7 +113,9 @@
           let travelIndex = window.location.search
           let param = new URLSearchParams(travelIndex);
           let index = param.get("index");
-          let indexes = "{{ index }}"
+          let checker = document.cookie.split(";").find((x) => x.startsWith("name"));
+          let name = decodeURI(checker);
+          name=name.split("=")[1];
           $.ajax({
             type: "POST",
             url: "/travel_comment",
