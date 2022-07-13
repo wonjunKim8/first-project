@@ -1,3 +1,4 @@
+from ast import AsyncFunctionDef
 from flask import Flask, render_template, request, jsonify, redirect
 from flask import Flask, redirect, url_for
 from pymongo import MongoClient
@@ -7,6 +8,7 @@ import hashlib
 from datetime import datetime, timedelta
 import certifi
 import requests
+import random
 
 
 from pymongo import MongoClient
@@ -24,43 +26,8 @@ def ADD():
 
 @app.route('/')
 def home():
-    status_receive = request.args.get("status_give")
     travel_list = list(db.travel.find({},{'_id':False}))
-    # num =travel_list['num']
-    return render_template('index.html',travel=travel_list,status=status_receive,num=num)
-
-
-@app.route("/travel", methods=["POST"])
-def mars_post():
-    travel_list = list(db.travel.find({}, {'_id': False}))
-    count =len(travel_list) +1
-    image_receive = request.form['image_give']
-    region_receive = request.form['region_give']
-    content_receive=request.form['content_give']
-    
-    name=request.form['names_give']
-    name_receive = name.split('=')[1]
-    print(name_receive)
-    doc = {
-        'image': image_receive,
-        'region': region_receive,
-        'content': content_receive,
-        'name': name_receive,
-        'num':count
-
-    }
-
-    db.travel.insert_one(doc)
-
-    return jsonify({'msg': '저장 완료!'})    
-
-@app.route('/api/delete_word', methods=['POST'])
-def delete_word(num):
-    # 단어 삭제하기
-    travel_receive = request.form['travel_give']
-    db.travel.delete_one({"travel":travel_receive})
-    return jsonify({'result': 'success', 'msg': '삭제완료!'})
-    
+    return render_template('index.html',travel=travel_list)
 
 
 ###############################################################################################################
@@ -142,6 +109,46 @@ def signup_success():
 
 
 
+@app.route("/travel", methods=["POST"])
+def mars_post():
+    image_receive = request.form['image_give']
+    region_receive = request.form['region_give']
+    content_receive=request.form['content_give']
+    name=request.form['names_give']
+    name_receive = name.split('=')[1]
+    
+    
+    index = random.randrange(1, 10000)
+    index_bool=True
+    
+    while index_bool :
+        if db.users.find_one({'index':index}):
+            index = random.randrange(1, 10000)
+        else :
+            index_bool=False
+           
+    doc = {
+    'image': image_receive,
+    'region': region_receive,
+    'content': content_receive,
+    'name': name_receive,
+    'index':index
+    }
+    
+    db.travel.insert_one(doc)
+
+    return jsonify({'msg': '저장 완료!'})
+
+# 삭제 기능 구현
+
+@app.route("/api/delete_card", methods=["POST"])
+def remove():
+    index_receive = int(request.form['index_give'])
+    db.travel.delete_one({'index':index_receive})
+
+        
+  
+    return jsonify({'msg': '삭제 완료!'})
 
 
 if __name__ == '__main__':

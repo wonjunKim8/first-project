@@ -19,21 +19,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,500;1,300&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 
-    <script>
-        function delete_word(num) {
-            $.ajax({
-                type: "POST",
-                url: `/api/delete_word`,
-                data: {
-                    travel_give: '{{ travel }}',
-                },
-                success: function (response) {
-                    alert(response["msg"])
-                    window.location.href = "/?status_give=old"
-                }
-            });
-        }
-    </script>
 </head>
 
 <body>
@@ -52,21 +37,19 @@
     </div>
     <div class="mycards">
         <div class="row row-cols-1 row-cols-md-4 g-4">
-            {% if status =="new"%}
             {% for one_travel in travel %}
-            <div id="card-box" class="col">
+            <div class="col">
                 <div class="card h-100">
-                    <img src="{{one_travel.image}}" class="card-img-top" alt="...">
+                    <img src="{{one_travel.image}}" width="80" height="300" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">{{one_travel.region}}</h5>
                         <p class="mycomment">{{one_travel.content}}</p>
                         <p class="myname">{{one_travel.name}}</p>
-                        <button onclick="delete_word('{{one_travel.num}}') ">삭제하기</button>
+                        <button onclick="delete_card('{{one_travel.index}}')">삭제</button>
                     </div>
                 </div>
             </div>
             {% endfor %}
-            {% endif %}
         </div>
     </div>
 </body>

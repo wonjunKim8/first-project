@@ -1,7 +1,7 @@
 .full-screan {
   width: 100vw;
   height: 100vh;
-  background-image: url("https://www.kagoshima-kankou.com/storage/tourism_themes/12/responsive_images/ElwnvZ2u5uZda7Pjcwlk4mMtr08kLNydT8zXA6Ie__1673_1115.jpeg");
+  background-image: url("/static/images/login_image.jpeg");
   background-position: center;
   background-size: cover;
 }
